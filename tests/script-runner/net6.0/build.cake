@@ -104,6 +104,24 @@ Task("Read-PullRequest")
     // Information(pullRequest.TargetRefName);
 });
 
+Task("Read-BuildWorkItems")
+    .Does(() =>
+{
+    var build = AzureDevOpsBuildUsingAzurePipelinesOAuthToken();
+
+    var workItems = build.GetWorkItems();
+    if (!workItems.Any())
+    {
+        Information("No work items found.");
+    }
+    else
+    {
+        foreach (var workItem in workItems)
+        {
+            Information("{0}: {1}", workItem.WorkItemId, workItem.Title);
+        }
+    }
+});
 
 Task("Default")
     .IsDependentOn("Read-Build")
@@ -111,7 +129,8 @@ Task("Default")
     .IsDependentOn("Read-BuildTimelineRecords")
     .IsDependentOn("Read-BuildArtifacts")
     .IsDependentOn("Read-BuildTestRuns")
-    .IsDependentOn("Read-PullRequest");
+    .IsDependentOn("Read-PullRequest")
+    .IsDependentOn("Read-BuildWorkItems");
 
 //////////////////////////////////////////////////
 // EXECUTION

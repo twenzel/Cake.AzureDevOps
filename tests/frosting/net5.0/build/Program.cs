@@ -145,6 +145,29 @@ public sealed class ReadPullRequestTask : FrostingTask<BuildContext>
     }
 }
 
+[TaskName("Read-BuildWorkItems")]
+public sealed class ReadBuildWorkItemsTask : FrostingTask<BuildContext>
+{
+    public override void Run(BuildContext context)
+    {
+        var build =
+            context.AzureDevOpsBuildUsingAzurePipelinesOAuthToken();
+
+        var workItems = build.GetWorkItems();
+        if (!workItems.Any())
+        {
+            context.Information("No work items found.");
+        }
+        else
+        {
+            foreach (var workItem in workItems)
+            {
+                context.Information("{0}: {1}", workItem.WorkItemId, workItem.Title);
+            }
+        }
+    }
+}
+
 [TaskName("Default")]
 [IsDependentOn(typeof(ReadBuildTask))]
 [IsDependentOn(typeof(ReadBuildChangesTask))]
@@ -152,6 +175,7 @@ public sealed class ReadPullRequestTask : FrostingTask<BuildContext>
 [IsDependentOn(typeof(ReadBuildArtifactsTask))]
 [IsDependentOn(typeof(ReadBuildTestRunsTask))]
 [IsDependentOn(typeof(ReadPullRequestTask))]
+[IsDependentOn(typeof(ReadBuildWorkItemsTask))]
 public class DefaultTask : FrostingTask
 {
 }
