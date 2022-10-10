@@ -107,20 +107,20 @@ Task("Read-PullRequest")
 Task("Read-BuildWorkItems")
     .Does(() =>
 {
-    var build = AzureDevOpsBuildUsingAzurePipelinesOAuthToken();
+    // var build = AzureDevOpsBuildUsingAzurePipelinesOAuthToken();
 
-    var workItems = build.GetWorkItems();
-    if (!workItems.Any())
-    {
-        Information("No work items found.");
-    }
-    else
-    {
-        foreach (var workItem in workItems)
-        {
-            Information("{0}: {1}", workItem.WorkItemId, workItem.Title);
-        }
-    }
+    // var workItems = build.GetWorkItems();
+    // if (!workItems.Any())
+    // {
+    //     Information("No work items found.");
+    // }
+    // else
+    // {
+    //     foreach (var workItem in workItems)
+    //     {
+    //         Information("{0}: {1}", workItem.WorkItemId, workItem.Title);
+    //     }
+    // }
 });
 
 Task("Default")

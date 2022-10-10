@@ -150,21 +150,21 @@ public sealed class ReadBuildWorkItemsTask : FrostingTask<BuildContext>
 {
     public override void Run(BuildContext context)
     {
-        var build =
-            context.AzureDevOpsBuildUsingAzurePipelinesOAuthToken();
+        // var build =
+        //     context.AzureDevOpsBuildUsingAzurePipelinesOAuthToken();
 
-        var workItems = build.GetWorkItems();
-        if (!workItems.Any())
-        {
-            context.Information("No work items found.");
-        }
-        else
-        {
-            foreach (var workItem in workItems)
-            {
-                context.Information("{0}: {1}", workItem.WorkItemId, workItem.Title);
-            }
-        }
+        // var workItems = build.GetWorkItems();
+        // if (!workItems.Any())
+        // {
+        //     context.Information("No work items found.");
+        // }
+        // else
+        // {
+        //     foreach (var workItem in workItems)
+        //     {
+        //         context.Information("{0}: {1}", workItem.WorkItemId, workItem.Title);
+        //     }
+        // }
     }
 }
 
